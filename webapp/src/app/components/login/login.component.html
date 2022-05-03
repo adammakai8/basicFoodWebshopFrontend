@@ -1,0 +1,31 @@
+<div class="h-100">
+    <div class="d-flex h-100 justify-content-center flex-column">
+        <span class="m-3 fs-2 text-center">
+            Basic Food Webshop
+        </span>
+        <span class="d-block">
+            <span class="d-block m-3 fs-3 text-center">
+                Bejelentkezés
+            </span>
+            <form class="d-flex w-100 justify-content-center" [formGroup]="loginForm">
+                <span class="d-flex w-25 flex-column">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Email cím:</mat-label>
+                        <input type="email" matInput formControlName="email" required>
+                        <mat-error *ngIf="controlHasError('email', 'required')">Email cím megadása kötelező!</mat-error>
+                        <mat-error *ngIf="controlHasError('email', 'email')">Rossz email formátum!</mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Jelszó:</mat-label>
+                        <input type="password" matInput formControlName="password" required>
+                        <mat-error *ngIf="controlHasError('password', 'required')">Jelszó megadása kötelező!</mat-error>
+                    </mat-form-field>
+                    <span class="d-flex justify-content-around flex-row">
+                        <button class="m-2 flex-fill" mat-raised-button color="primary" (click)="onLogin()">Bejelentkezés</button>
+                        <button class="m-2 flex-fill" mat-button color="primary" (click)="onRegisternavigation()">Regisztráció</button>
+                    </span>
+                </span>
+            </form>
+        </span>
+    </div>
+</div>

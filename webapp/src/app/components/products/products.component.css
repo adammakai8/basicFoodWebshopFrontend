@@ -1,0 +1,8 @@
+.mt-5 {
+    top: 10%;
+}
+
+.position-fixed {
+    background: white fixed;
+    z-index: 1000;
+}

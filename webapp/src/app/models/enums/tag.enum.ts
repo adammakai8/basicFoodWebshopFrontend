@@ -1,0 +1,6 @@
+export enum Tag {
+    VEGETARIAN = 'VEGETARIAN',
+    GLUTEN_FREE = 'GLUTEN_FREE',
+    SUGAR_FREE = 'SUGAR_FREE',
+    VEGAN = 'VEGAN'
+}

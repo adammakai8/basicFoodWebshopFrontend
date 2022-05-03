@@ -1,0 +1,30 @@
+<div>
+    <span class="fs-4">
+        A kosár tartalma:
+    </span>
+    <div class="container">
+        <div class="row">
+            <span class="col-6 fw-bold">Név</span>
+            <span class="col-1 fw-bold">Mennyiség</span>
+            <span class="col-2 fw-bold">Ár</span>
+            <span class="col fw-bold">Műveletek</span>
+        </div>
+        <div class="row" **ngFor="let item of basket">
+            <span class="col-6">{{ item.product.name }}</span>
+            <span class="col-1">{{ item.amount }}</span>
+            <span class="col-2">{{ item.product.price * item.amount }}</span>
+            <span class="col-2">
+                <button mat-button (click)="modify(item)">Módosítás</button>
+            </span>
+            <span class="col-1">
+                <button mat-mini-fab color="warn" (click)="remove(item)">
+                    <mat-icon>remove_shopping_cart</mat-icon>
+                </button>
+            </span>
+        </div>
+        <div class="row">
+            <span class="column float-end fw-bold">Összesen: {{ getSum() }}</span>
+        </div>
+    </div>
+    <button class="float-end" mat-raised-button color="primary" (click)="order()">Rendelés</button>
+</div>

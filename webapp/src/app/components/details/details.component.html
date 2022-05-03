@@ -1,0 +1,21 @@
+<div class="m-3">
+    <span class="fs-3 p-1">
+        {{ product.name }}
+    </span>
+    <img class="p-1" src="{{ getImageUrl() }}"/>
+    <div class="p-1">
+        <span>Kategória: </span>
+        <span>{{ getProductCategory() }}</span>
+    </div>
+    <div class="p-1">
+        <span>{{ product.description }}</span>
+    </div>
+    <div class="p-1">
+        <span class="fs-5">Ár: </span>
+        <span class="fs-5 fw-bold">{{ product.price }}</span>
+    </div>
+    <button mat-raised-button color="primary" class="m-1" (click)="openBuyDialog()">Megveszem</button>
+    <button mat-fab color="primary" class="position-absolute bottom-0 start-0 m-4" (click)="back()" [disabled]="isDisabled">
+        <mat-icon>arrow_back</mat-icon>
+    </button>
+</div>

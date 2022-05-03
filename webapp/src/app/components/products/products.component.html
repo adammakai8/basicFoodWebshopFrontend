@@ -1,0 +1,76 @@
+<div class="w-100 h-100">
+    <div class="w-100 position-fixed">
+        <div class="fs-1 m-4 text-center">
+            Basic Food Webshop
+        </div>
+        <button mat-button class="position-absolute top-0 end-0 m-1" (click)="logout()">Kijelentkezés</button>
+        <mat-accordion>
+            <mat-expansion-panel hideToggle>
+                <mat-expansion-panel-header>
+                    <mat-panel-title class="fs-5">
+                        Keresés:
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field appearance="fill" class="w-100">
+                                <mat-label>Termék neve</mat-label>
+                                <input type="text" matInput [(ngModel)]="name">
+                            </mat-form-field>
+                        </div>
+                        <div class="col">
+                            <section>
+                                <span *ngFor="let category of categories">
+                                    <mat-checkbox class="p-2" (change)="setCategory($event.checked, category.value)">
+                                        {{ category.text }}
+                                    </mat-checkbox>
+                                </span>
+                            </section>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field appearance="fill" class="w-50">
+                                <mat-label>Minimum ár</mat-label>
+                                <input type="number" matInput [(ngModel)]="min_price">
+                            </mat-form-field>
+                            <mat-form-field appearance="fill" class="w-50">
+                                <mat-label>Maximum ár</mat-label>
+                                <input type="number" matInput [(ngModel)]="max_price">
+                            </mat-form-field>
+                        </div>
+                        <div class="col">
+                            <section>
+                                <span *ngFor="let tag of tags">
+                                    <mat-checkbox class="p-2" (change)="setTag($event.checked, tag.value)">
+                                        {{ tag.text }}
+                                    </mat-checkbox>
+                                </span>
+                            </section>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <button class="m-2 w-25" mat-stroked-button color="primary" (click)="search()">Keresés</button>
+                    </div>
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+    <div class="w-50 mt-5 d-flex justify-content-center container">
+        <div class="row row-cols-2">
+            <div *ngFor="let product of products" class="pt-2 pb-2">
+                <mat-card>
+                    <mat-card-title>{{ product.name }}</mat-card-title>
+                    <img mat-card-image [src]="getImageUrl(product.category)">
+                    <mat-card-actions>
+                        <button mat-button (click)="viewProduct(product)">Részletek</button>
+                    </mat-card-actions>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+    <button mat-fab color="primary" class="position-absolute bottom-0 end-0 m-4" (click)="basket()">
+        <mat-icon>shopping_cart</mat-icon>
+    </button>
+</div>

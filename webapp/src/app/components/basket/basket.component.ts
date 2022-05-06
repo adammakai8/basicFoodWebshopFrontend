@@ -2,10 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { ObjectId } from 'mongodb';
 import { BuyProductDialogComponent } from 'src/app/dialogs/buy-product-dialog/buy-product-dialog.component';
 import { OrderDialogComponent } from 'src/app/dialogs/order-dialog/order-dialog.component';
-import { Item } from 'src/app/models/item.model';
 import { Order } from 'src/app/models/order.model';
 import { OrderService } from 'src/app/services/order.service';
 
@@ -17,31 +15,35 @@ import { OrderService } from 'src/app/services/order.service';
 export class BasketComponent implements OnInit {
 
   basket: any[] = [];
+  isDisabled: boolean;
 
   constructor(
     private orderService: OrderService,
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
     private router: Router
-  ) { }
+  ) { this.isDisabled = false; }
 
   ngOnInit(): void {
-    this.orderService.getBasket().subscribe(result => this.basket = result);
+    this.orderService.getBasket().subscribe(result => {this.basket = result; console.log(this.basket)});
   }
 
   modify(item: any): void {
+    this.isDisabled = true;
     const dialogRef = this.dialog.open(BuyProductDialogComponent, { data: { amount: item.amount, accepted: true }});
     dialogRef.afterClosed().subscribe(data => {
       if (!data.accepted) {
+        this.isDisabled = false;
         return;
       }
       item.amount = data.amount;
       this.orderService.modifyItem(item).subscribe(result => this.basket = result);
+      this.isDisabled = false;
     });
   }
 
-  remove(item: any): void {
-    this.orderService.removeItem(item).subscribe(result => {
+  remove(index: number): void {
+    this.orderService.removeItem(index).subscribe(result => {
       this.basket = result;
       this.snackBar.open('Termék eltávolítva', undefined, { duration: 3000 });
     });
@@ -54,6 +56,7 @@ export class BasketComponent implements OnInit {
   }
 
   order(): void {
+    this.isDisabled = true;
     const dialogRef = this.dialog.open(OrderDialogComponent, { data: undefined });
     dialogRef.afterClosed().subscribe(data => {
       const user_id = localStorage.getItem('user');
@@ -61,7 +64,7 @@ export class BasketComponent implements OnInit {
         const newOrder = new Order();
         newOrder.user_id = user_id;
         newOrder.items = this.basket;
-        newOrder.shipper = data.shipper;
+        newOrder.shippers = data.shipper;
         newOrder.address = data.address;
         newOrder.payment = data.payment;
         this.orderService.doOrder(newOrder).subscribe(result => {
@@ -73,6 +76,11 @@ export class BasketComponent implements OnInit {
         this.snackBar.open('Nem található bejelentkezett felhaszáló, kilépés...', undefined, { duration: 3000 });
         this.router.navigate(['/login']);
       }
+      this.isDisabled = false;
     });
+  }
+
+  back(): void {
+    this.router.navigate(['/products']);
   }
 }

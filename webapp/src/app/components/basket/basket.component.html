@@ -1,5 +1,5 @@
-<div>
-    <span class="fs-4">
+<div class="d-block p-3">
+    <span class="fs-4 d-block mb-3">
         A kosár tartalma:
     </span>
     <div class="container">
@@ -9,22 +9,23 @@
             <span class="col-2 fw-bold">Ár</span>
             <span class="col fw-bold">Műveletek</span>
         </div>
-        <div class="row" **ngFor="let item of basket">
+        <div class="row" *ngFor="let item of basket; let i = index">
             <span class="col-6">{{ item.product.name }}</span>
             <span class="col-1">{{ item.amount }}</span>
             <span class="col-2">{{ item.product.price * item.amount }}</span>
-            <span class="col-2">
+            <span class="col">
                 <button mat-button (click)="modify(item)">Módosítás</button>
-            </span>
-            <span class="col-1">
-                <button mat-mini-fab color="warn" (click)="remove(item)">
+                <button mat-mini-fab color="warn" class="ms-2" (click)="remove(i)">
                     <mat-icon>remove_shopping_cart</mat-icon>
                 </button>
             </span>
         </div>
         <div class="row">
-            <span class="column float-end fw-bold">Összesen: {{ getSum() }}</span>
+            <span class="col float-end fw-bold">Összesen: {{ getSum() }}</span>
         </div>
     </div>
-    <button class="float-end" mat-raised-button color="primary" (click)="order()">Rendelés</button>
+    <button class="float-end m-2" [disabled]="basket.length === 0" mat-raised-button color="primary" (click)="order()">Rendelés</button>
+    <button mat-fab color="primary" class="position-absolute bottom-0 start-0 m-4" (click)="back()" [disabled]="isDisabled">
+        <mat-icon>arrow_back</mat-icon>
+    </button>
 </div>

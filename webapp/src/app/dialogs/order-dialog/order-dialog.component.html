@@ -1,17 +1,19 @@
 <div>
     <span class="fw-bold d-block pb-3 fs-4">Rendelés leadása</span>
-    <form class="d-flex justify-content-center" [formGroup]="orderForm">
+    <form class="d-flex justify-content-center flex-column" [formGroup]="orderForm">
         <mat-form-field appearance="fill">
             <mat-label>Futárszolgálat</mat-label>
             <mat-select formControlName="shipper">
               <mat-option *ngFor="let shipper of shipperTexts" [value]="shipper.value">
                 {{shipper.text}}
               </mat-option>
-            </mat-select>
+            </mat-select> 
+            <mat-error *ngIf="controlHasError('shipper')">Kötelező adat</mat-error>
           </mat-form-field>
           <mat-form-field appearance="fill">
             <mat-label>Szállítási cím</mat-label>
             <input matInput formControlName="address"/>
+            <mat-error *ngIf="controlHasError('address')">Kötelező adat</mat-error>
           </mat-form-field>
           <mat-form-field appearance="fill">
             <mat-label>Fizetési mód</mat-label>
@@ -20,10 +22,11 @@
                 {{payment.text}}
               </mat-option>
             </mat-select>
+            <mat-error *ngIf="controlHasError('payment')">Kötelező adat</mat-error>
           </mat-form-field>
           <span class="d-flex justify-content-around flex-row">
             <button class="m-2 flex-fill" mat-button color="primary" (click)="close()">Mégse</button>
-            <button class="m-2 flex-fill" mat-raised-button color="primary" (click)="order()">Rendelés leadása</button>
+            <button class="m-2 flex-fill" mat-raised-button color="primary" [mat-dialog-close]="orderForm.value" [disabled]="orderForm.invalid">Rendelés leadása</button>
           </span>
     </form>
 

@@ -1,8 +1,12 @@
-.mt-5 {
-    top: 10%;
+#prodgrid {
+    padding-top: 10%;
 }
 
 .position-fixed {
     background: white fixed;
     z-index: 1000;
+}
+
+button.position-fixed {
+    background-color: #3f51b5 !important;
 }

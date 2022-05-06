@@ -47,7 +47,7 @@ export class DetailsComponent implements OnInit {
     this.isDisabled = true;
     const dialogRef = this.dialog.open(BuyProductDialogComponent, { data: { amount: 1, accepted: true } });
     dialogRef.afterClosed().subscribe(data => {
-      if (!data.accepted) {
+      if (!data) {
         this.isDisabled = false;
         return;
       }

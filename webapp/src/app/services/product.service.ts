@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { Category } from '../models/enums/category.enum';
 import { Tag } from '../models/enums/tag.enum';
 import { Item } from '../models/item.model';
+import { ProductFilter } from '../models/product-filter.model';
 import { Product } from '../models/product.model';
 
 @Injectable({
@@ -32,23 +33,23 @@ export class ProductService {
     max_price: number | undefined, 
     tagList: Tag[]
     ): Observable<any> {
-    const filterParams = new HttpParams();
+    var filterParams = new ProductFilter();
     if (name) {
-      filterParams.set('name', name);
+      filterParams.name = name;
     }
     if (categoryList.length > 0) {
-      filterParams.set('categories', categoryList.join(','));
+      filterParams.categories = categoryList.join(',');
     }
     if (min_price) {
-      filterParams.set('min_price', min_price);
+      filterParams.min_price = min_price;
     }
     if (max_price) {
-      filterParams.set('max_price', max_price);
+      filterParams.max_price = max_price;
     }
     if (tagList.length > 0) {
-      filterParams.set('tagList', tagList.join(','));
+      filterParams.tags = tagList.join(',');
     }
-    return this.http.get(environment.serverUrl + '/api/products', { params: filterParams });
+    return this.http.get(environment.serverUrl + '/api/products', { params: filterParams as any });
   }
 
   buyProduct(item: Item): Observable<any> {

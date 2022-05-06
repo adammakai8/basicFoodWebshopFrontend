@@ -20,8 +20,8 @@ export class OrderService {
     return this.http.post(environment.serverUrl + '/api/buy', { item: item });
   }
 
-  removeItem(item: any): Observable<any> {
-    return this.http.delete(environment.serverUrl + '/api/buy', { params: { item: item._id } });
+  removeItem(index: number): Observable<any> {
+    return this.http.delete(environment.serverUrl + '/api/buy', { params: { index: index } });
   }
 
   doOrder(order: Order): Observable<any> {

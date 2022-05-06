@@ -34,9 +34,9 @@ export class LoginComponent implements OnInit {
   onLogin(): void {
     if (this.loginForm.valid) {
       this.userService.login(this.loginForm.value).subscribe(user => {
-        console.log(user);
         localStorage.setItem('user', user._id);
         this.router.navigate(['/products']);
+        console.log(user);
       }, error => {
         this.snackBar.open('Sikertelen bejelentkezés', undefined, { duration: 3000 });
         console.log(error);

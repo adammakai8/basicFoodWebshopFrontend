@@ -46,10 +46,7 @@ export class OrderDialogComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  order(): void {
-    if (this.orderForm.valid) {
-      this.data = this.orderForm.value;
-      this.dialogRef.close();
-    }
+  controlHasError(control: string): boolean {
+    return this.orderForm.controls[control].invalid;
   }
 }

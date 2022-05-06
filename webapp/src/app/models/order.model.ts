@@ -4,7 +4,7 @@ import { Shippers } from './enums/shippers.enum';
 export class Order {
     user_id!: string;
     items!: any[];
-    shipper!: Shippers;
+    shippers!: Shippers;
     address!: string;
     payment!: Payment;
 }
